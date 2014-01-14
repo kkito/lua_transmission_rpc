@@ -2,4 +2,64 @@
 require "luarocks.loader"
 local http = require("socket.http")
 
-print("hello world")
+local rpc_addr = "http://localhost:9091/transmission/rpc/"
+
+function get_session_id()
+    local body , code , response_headers = http.request(rpc_addr)
+    if code == 409 or code == 200 then
+        return response_headers["x-transmission-session-id"]
+    else
+        error("get session id error")
+    end
+end
+
+function stop_all()
+    session_id = get_session_id()
+    request_body = '{"method":"torrent-stop"}' 
+    local body , code , response_headers = http.request
+    {
+        url = rpc_addr;
+        method = "POST";
+        headers = 
+        {
+            ["X-Transmission-Session-Id"] = session_id;
+            ["Content-Length"] = #request_body;
+        };
+        source = ltn12.source.string(request_body);
+        -- sink = ltn12.sink.table({});
+    }
+    
+    if code == 200 then
+        print(body)
+    else
+        error("stop_all fail")
+    end
+end
+
+function start_all()
+    session_id = get_session_id()
+    request_body = '{"method":"torrent-start"}' 
+    local body , code , response_headers = http.request
+    {
+        url = rpc_addr;
+        method = "POST";
+        headers = 
+        {
+            ["X-Transmission-Session-Id"] = session_id;
+            ["Content-Length"] = #request_body;
+        };
+        source = ltn12.source.string(request_body);
+        sink = ltn12.sink.table({});
+    }
+    
+    if code == 200 then
+        print(body)
+    else
+        error("start_all fail")
+    end
+end
+
+-- print("hello world")
+-- get_session_id()
+-- stop_all()
+start_all()
