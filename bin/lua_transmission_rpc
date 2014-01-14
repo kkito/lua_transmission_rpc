@@ -1,0 +1,5 @@
+#!/bin/env lua
+require "luarocks.loader"
+local http = require("socket.http")
+
+print("hello world")
