@@ -1,4 +1,14 @@
 #!/bin/env lua
+
+
+-- curl -v "http://localhost:9091/transmission/rpc"
+-- xmHl0yF4wDivk5qGLuW6rOPpsOB8VyPrVkLBNXtAd4YcPCFf
+-- torrent-get
+-- curl -H "X-Transmission-Session-Id: xmHl0yF4wDivk5qGLuW6rOPpsOB8VyPrVkLBNXtAd4YcPCFf" -v -X POST -d '{"method":"torrent-get"}'  "http://localhost:9091/transmission/rpc"
+-- curl -H "Content-Type: application/json; charset=UTF-8" -H "X-Transmission-Session-Id: xmHl0yF4wDivk5qGLuW6rOPpsOB8VyPrVkLBNXtAd4YcPCFf" -v -X POST -d '{"method":"torrent-get","arguments":{"fields":["id"],"ids":"recently-active"}}'  "http://localhost:9091/transmission/rpc"
+-- curl -H "Content-Type: application/json; charset=UTF-8" -H "X-Transmission-Session-Id: xmHl0yF4wDivk5qGLuW6rOPpsOB8VyPrVkLBNXtAd4YcPCFf" -v -X POST -d '{"method":"torrent-get","arguments":{"fields":["id","activityDate"]}}'  "http://localhost:9091/transmission/rpc"
+-- https://trac.transmissionbt.com/browser/trunk/extras/rpc-spec.txt?rev=13328
+
 require "luarocks.loader"
 local http = require("socket.http")
 
