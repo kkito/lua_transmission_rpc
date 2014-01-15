@@ -1,4 +1,4 @@
-#!/bin/env lua
+#!/usr/bin/env lua
 
 
 -- curl -v "http://localhost:9091/transmission/rpc"
