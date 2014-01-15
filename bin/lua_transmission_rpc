@@ -9,10 +9,12 @@
 -- curl -H "Content-Type: application/json; charset=UTF-8" -H "X-Transmission-Session-Id: xmHl0yF4wDivk5qGLuW6rOPpsOB8VyPrVkLBNXtAd4YcPCFf" -v -X POST -d '{"method":"torrent-get","arguments":{"fields":["id","activityDate"]}}'  "http://localhost:9091/transmission/rpc"
 -- https://trac.transmissionbt.com/browser/trunk/extras/rpc-spec.txt?rev=13328
 
+
+-- the rpc address
+local rpc_addr = "http://localhost:9091/transmission/rpc/"
+
 require "luarocks.loader"
 local http = require("socket.http")
-
-local rpc_addr = "http://localhost:9091/transmission/rpc/"
 
 function get_session_id()
     local body , code , response_headers = http.request(rpc_addr)
@@ -72,4 +74,12 @@ end
 -- print("hello world")
 -- get_session_id()
 -- stop_all()
-start_all()
+-- start_all()
+local command = arg[1]
+if command == "start" then
+    start_all()
+elseif command == "stop" then
+    stop_all()
+else
+    print("usage: \n\tlua_transmission_rpc start\n\tlua_transmission_rpc stop")
+end

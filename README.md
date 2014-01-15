@@ -10,5 +10,6 @@ a command to start/stop transmission-daemon's torrents
 * luarocks install luasocket ; luarocks install json4lua
 
 ### usage
-TODO
+* lua_transmission_rpc start
+* lua_transmission_rpc stop
 
